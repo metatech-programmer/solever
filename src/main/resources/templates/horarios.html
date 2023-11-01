@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="layout/plantilla :: head" />
+    <title>[[#{app.horarios}]]</title>
+
+
+    <body>
+
+        <header th:replace="layout/plantilla :: header"/>
+        <main>
+
+            <div class="d-flex flex-wrap ps-0 p-lg-4 w-100 text-center text-white fw-bolder overflow-scroll imagenbg">
+
+                <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; margin-bottom: 30px; width: 50%;"
+                    class="border border-5 mt-4 border-info border-opacity-50 pt-2 pb-2">[[#{app.horarios.reuniones}]]</h2>
+                <hr>
+                    <table
+                        class="table table-info table-hover table-group-divider table-responsive table-responsive-sm   table-striped table w-75 m-auto border border-5 border-info border-opacity-25" >
+
+                        <thead class="table-light  text-decoration-underline">
+                            <tr class="rounded-4">
+                                <th scope="col">[[#{app.horarios.hora}]]</th>
+                                <th scope="col">[[#{app.tabla.tema}]]</th>
+                                <th scope="col">[[#{app.horarios.cupos}]]</th>
+                                <th scope="col">[[#{app.tabla.tema.especialista}]]</th>
+                                <th scope="col">[[#{app.horarios.unirse}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody sec:authorize="hasRole('ROLE_SPECIALIST')" th:if="${temasUsu != null and not #lists.isEmpty(temasUsu)}">
+                            <tr th:each="tema : ${temasUsu}">
+                                <th scope="row" th:text="${tema.horaTema}">hora</th>
+                                <td  th:text="${tema.nombreTema}">NombreTema</td>
+                                <td th:text="${tema.cuposTema}">Cupos</td>
+                                <td>@ [[${tema.idUsuario.nombreUsuario}]]</td>
+                                <td><a name="" id="" class="btn btn-primary m-3" th:href="${tema.linkMeetTema}" role="button" target="_blank">Meet</a></td>
+                            </tr>
+                            <div class="text-center p-2" th:if="${temasUsu == null or #lists.isEmpty(temasUsu)}">
+                                <span>[[#{app.lista.vacia}]]</span>
+                            </div>
+                        </tbody>
+                        <tbody sec:authorize="hasRole('ROLE_ADMIN')" th:if="${temas != null and not #lists.isEmpty(temas)}">
+                            <tr th:each="tema : ${temas}">
+                                <th scope="row" th:text="${tema.horaTema}">hora</th>
+                                <td  th:text="${tema.nombreTema}">NombreTema</td>
+                                <td th:text="${tema.cuposTema}">Cupos</td>
+                                <td>@ [[${tema.idUsuario.nombreUsuario}]]</td>
+                                <td><a name="" id="" class="btn btn-primary m-3" th:href="${tema.linkMeetTema}" role="button" target="_blank">Meet</a></td>
+                            </tr>
+                            <div class="text-center p-2" th:if="${temas == null or #lists.isEmpty(temas)}">
+                                <span>[[#{app.lista.vacia}]]</span>
+                            </div>
+                        </tbody>
+                        <tbody sec:authorize="!hasAnyRole('ROLE_ADMIN', 'ROLE_SPECIALIST')" th:if="${temasC != null and not #lists.isEmpty(temasC)}">
+                            <tr th:each="tema : ${temasC}">
+                                <th scope="row" th:text="${tema.horaTema}">hora</th>
+                                <td  th:text="${tema.nombreTema}">NombreTema</td>
+                                <td th:text="${tema.cuposTema}">Cupos</td>
+                                <td>@ [[${tema.idUsuario.nombreUsuario}]]</td>
+                                <td  th:if="${tema.horaTema <= hora && tema.cuposTema > 0}"><a name="" id="" class="btn btn-primary m-3"  th:href="@{/cupos/{id}(id=${tema.idTema})}"  role="button" >[[#{app.horarios.unomas}]]</a></td>
+                                <td  th:if="${tema.horaTema > hora || tema.cuposTema == 0}"><span class="btn btn-secondary m-3">[[#{app.horarios.unomas}]]</span></td>
+                            </tr>
+                            <div class="text-center p-2" th:if="${temasC == null or #lists.isEmpty(temasC)}">
+                                <span>[[#{app.lista.vacia}]]</span>
+                            </div>
+                        </tbody>
+
+                    </table>
+
+
+            </div>
+
+            <button class="scroll-btn text-info">
+                <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+            </button>
+        </main>
+        <footer th:replace="layout/plantilla :: footer"/>
+    </body>
+</html>

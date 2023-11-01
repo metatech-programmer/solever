@@ -1,0 +1,245 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <title>Regístrate</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <link rel="shortcut icon" href="./img/log.png" type="image/x-icon">
+
+                    <!-- Bootstrap CSS v5.2.1 -->
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+                          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        </head>
+
+                        <body>
+
+                            <section class="w-100 gradient-custom d-flex">
+                                <div class="container w-100">
+                                    <div class="row w-100 h-100">
+                                        <div class="col-12 w-100 col-lg-9 col-xl-7">
+                                            <div class="card shadow-2-strong card-registration border-0" style="border-radius: 15px;">
+                                                <div class="card-body p-md-5">
+                                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Regístrate</h3>
+
+                                                    <form th:action="@{/registro}" th:object="${usuario}"  method="post" enctype="multipart/form-data" class="was-validated">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-4">
+
+                                                                <div class="form-outline">
+                                                                    <input type="text" id="nombreUsuario" class="form-control form-control-lg" name="nombreUsuario" th:field="*{nombreUsuario}"  required="true"/>
+                                                                    <label class="form-label" for="nombreUsuario">Nombres</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6 mb-4">
+
+                                                                <div class="form-outline">
+                                                                    <input type="text" id="apellidoUsuario" class="form-control form-control-lg" name="apellidoUsuario" required="true"/>
+                                                                    <label class="form-label" for="apellidoUsuario">Apellidos</label>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                                                <div class="form-outline datepicker w-100">
+                                                                    <input type="date" class="form-control form-control-lg" id="fechaNacimientoUsuario" name="fechaNacimientoUsuario" required="true"/>
+                                                                    <label for="fechaNacimientoUsuario" class="form-label">Fecha de nacimiento</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6 mb-4">
+
+                                                                <h6 class="mb-2 pb-1">Genero</h6>
+
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="generoUsuario"
+                                                                           id="generoUsuario" value="Mujer" required="true" />
+                                                                    <label class="form-check-label" for="generoUsuario">Mujer</label>
+                                                                </div>
+
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="generoUsuario"
+                                                                           id="generoUsuario" value="Mujer" required="true"/>
+                                                                    <label class="form-check-label" for="generoUsuario">Hombre</label>
+                                                                </div>
+
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="generoUsuario"
+                                                                           id="generoUsuario" value="Otro" required="true"/>
+                                                                    <label class="form-check-label" for="generoUsuario">Otro</label>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                                <div class="form-outline">
+                                                                    <input type="tel" id="numeroTelUsuario" class="form-control form-control-lg" name="numeroTelUsuario" required="true"/>
+                                                                    <label class="form-label" for="numeroTelUsuario">Número Telefónico</label>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                                <div class="form-outline">
+                                                                    <input type="number" id="numeroDocumentoUsuario"
+                                                                           class="form-control form-control-lg" name="numeroDocumentoUsuario" required="true"/>
+                                                                    <label class="form-label" for="numeroDocumentoUsuario">No. de documento</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-6">
+
+                                                                <div class="form-outline">
+                                                                    <input type="file" id="fotoCedula" class="form-control form-control-lg" name="fotoCedula" accept=".pdf" required="true"/>
+                                                                    <label class="form-label" for="fotoCedula">Foto de la cédula (Ambos lados)</label>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                                <div class="form-outline">
+                                                                    <input type="email" id="correoUsuario"
+                                                                           class="form-control form-control-lg" name="correoUsuario" required="true"/>
+                                                                    <label class="form-label" for="correoUsuario">Correo</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                                <div class="form-outline">
+                                                                    <input type="password" id="password"
+                                                                           class="form-control form-control-lg" oninput="validarContraseñas();" required="true"/>
+                                                                    <label class="form-label" for="password">Contraseña</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                                <div class="form-outline">
+                                                                    <input type="password" id="passwordUsuario"
+                                                                           class="form-control form-control-lg" name="passwordUsuario"  oninput="validarContraseñas();" required="true"/>
+                                                                    <label class="form-label" for="passwordUsuario">Repetir Contraseña</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+
+                                                                <div id="iguales" class="text-white w-100 fw-bold border border-1 rounded-4 text-center"></div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-12">
+
+                                                                <select class="select form-control-lg" name="categoria" id="categoria" required="true"  oninput="validarSelector();" >
+                                                                    <option value="defecto" selected class="bg-dark bg-opacity-50">Selecciona una opción</option>
+                                                                    <option value="ROLE_TEEN">Adolescente ( 18 - 26 )</option>
+                                                                    <option value="ROLE_ADULT">Adulto ( 27 - 59 )</option>
+                                                                    <option value="ROLE_ELDERLY">Adulto Mayor ( 60+ )</option>
+                                                                    <option value="ROLE_SPECIALIST">Especialista (Area de salud)</option>
+                                                                </select>
+                                                                <label class="form-label select-label">Escoge tú categoría</label>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-4 pt-2">
+                                                            <input class="btn btn-primary btn-lg" id="botonS" type="button" value="Registrarse" />
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-auto p-5"><img src="./img/ayuda2.png" class="img-fluid rounded-top" alt="" width="800px"></div>
+                            </section>
+
+                            <!-- Bootstrap JavaScript Libraries -->
+                            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                                    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+                            </script>
+
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+                                    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+                            </script>
+                            <script>
+                                function validarContraseñas() {
+                                    var password1 = document.getElementById('password').value;
+                                    var password2 = document.getElementById('passwordUsuario').value;
+                                    var div = document.getElementById('iguales');
+                                    var btn = document.getElementById('botonS');
+
+                                    if (password1 === password2) {
+                                        div.classList.add("bg-success");
+                                        div.classList.remove("bg-secondary");
+                                        div.style.transition = ".7s";
+                                        div.style.boxShadow = "3px 3px 3px rgb(0,200,100)";
+                                        div.textContent = 'Las contraseñas son iguales';
+                                        btn.type = "submit";
+                                        validarSelector();
+                                    } else {
+                                        div.classList.remove("bg-success");
+                                        div.classList.add("bg-secondary");
+                                        div.style.transition = ".7s";
+                                        div.style.boxShadow = "3px 3px 3px red";
+                                        div.textContent = 'Las contraseñas no coinciden';
+                                        btn.type = "button";
+                                    }
+
+
+                                }
+
+                                function validarSelector() {
+                                    var btn = document.getElementById('botonS');
+                                    var option = document.getElementById('categoria');
+                                    var selectedIndex = option.selectedIndex;
+
+                                    if (selectedIndex !== 0) {
+                                        btn.type = "submit";
+                                        validarContraseñas();
+                                    } else {
+                                        btn.type = "button";
+                                    }
+                                }
+                            </script>
+
+                            <script src="./main.js"></script>
+                            <script>
+                                var url = new URL(window.location.href);
+
+                                var searchParams = new URLSearchParams(url.search);
+
+                                var error = searchParams.get("error");
+
+                                if (error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: error
+                                    });
+                                }
+
+
+                            </script>
+                        </body>
+
+                        </html>

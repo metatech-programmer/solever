@@ -1,0 +1,175 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="layout/plantilla :: head" />
+    <title>[[#{app.perfil.datos}]]</title>
+    <body>
+
+        <header th:replace="layout/plantilla :: header"/>
+        <main>
+
+            <div class="d-flex flex-wrap w-100 p-0 m-0 justify-content-evenly imagenbg ">
+                <div class="w-100 m-4">
+                    <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; width: 50%; text-align: center; color: rgb(255, 255, 255);"
+                        class="border border-5 border-info border-opacity-50 pt-2 pb-2">[[#{app.perfil.datos}]]</h2>
+
+                </div>
+                <div th:each="usuario : ${usuariosD}" 
+                     class="d-flex flex-wrap w-100 justify-content-evenly bg-light bg-opacity-50 m-4 border border-3 border-info rounded-5 p-5">
+
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    <input type="text" id="firstName" class="form-control form-control-lg" th:value="${usuario.nombreUsuario}" disabled  />
+                                    <label class="form-label" for="firstName">[[#{registrar.nombres}]]</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    <input type="text" id="lastName" class="form-control form-control-lg" th:value="${usuario.apellidoUsuario}" disabled />
+                                    <label class="form-label" for="lastName">[[#{registrar.apellidos}]]</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                <div class="form-outline datepicker w-100">
+                                    <input type="date" class="form-control form-control-lg" id="birthdayDate" th:value="${usuario.fechaNacimientoUsuario}" disabled />
+                                    <label for="birthdayDate" class="form-label">[[#{registrar.fecha}]]</label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 mb-4 " th:if="${usuario.generoUsuario == 'Hombre'}">
+
+                                <h6 class="mb-2 pb-1">[[#{registrar.genero}]]</h6>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                           value="option1"  disabled />
+                                    <label class="form-check-label" for="femaleGender">[[#{registrar.genero.mujer}]]</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                           value="option2" checked disabled />
+                                    <label class="form-check-label" for="maleGender">[[#{registrar.genero.hombre}]]</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                                           value="option3" disabled />
+                                    <label class="form-check-label" for="otherGender">[[#{registrar.genero.otro}]]</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4 " th:if="${usuario.generoUsuario == 'Mujer'}">
+
+                                <h6 class="mb-2 pb-1">[[#{registrar.genero}]]</h6>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                           value="option1" checked disabled />
+                                    <label class="form-check-label" for="femaleGender">[[#{registrar.genero.mujer}]]</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                           value="option2"  disabled />
+                                    <label class="form-check-label" for="maleGender">[[#{registrar.genero.hombre}]]</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                                           value="option3" disabled />
+                                    <label class="form-check-label" for="otherGender">[[#{registrar.genero.otro}]]</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4 " th:if="${usuario.generoUsuario == 'Otro'}">
+
+                                <h6 class="mb-2 pb-1">[[#{registrar.genero}]]</h6>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                           value="option1"  disabled />
+                                    <label class="form-check-label" for="femaleGender">[[#{registrar.genero.mujer}]]</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                           value="option2"  disabled />
+                                    <label class="form-check-label" for="maleGender">[[#{registrar.genero.hombre}]]</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                                           value="option3" checked disabled />
+                                    <label class="form-check-label" for="otherGender">[[#{registrar.genero.otro}]]</label>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    <input type="tel" id="phoneNumber" class="form-control form-control-lg" th:value="${usuario.numeroTelUsuario}" disabled />
+                                    <label class="form-label" for="phoneNumber">[[#{registrar.numero.tel}]]</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    <input type="number" id="phoneNumber" class="form-control form-control-lg" th:value="${usuario.numeroDocumentoUsuario}" disabled />
+                                    <label class="form-label" for="phoneNumber">[[#{registrar.documento}]]</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    <input type="email" id="emailAddress" class="form-control form-control-lg" th:value="${usuario.correoUsuario}" disabled />
+                                    <label class="form-label" for="emailAddress">[[#{registrar.correo}]]</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="mt-4 pt-2">
+                            <a class="btn btn-success btn-lg w-100 fw-bolder" href="mailto:solevercompany@gmail.com?subject=Deseo%20actualizar%20mis%20datos&body=Estimado/a%20[Nombre%20del%20destinatario],%0D%0A%0D%0AEspero%20que%20se%20encuentre%20bien.%20Me%20permito%20la%20presente%20para%20solicitar%20amablemente%20la%20actualización%20de%20mis%20datos%20en%20sus%20registros.%20Deseo%20asegurarme%20de%20que%20la%20información%20que%20poseen%20sobre%20mí%20esté%20completamente%20actualizada%20y%20sea%20precisa%20para%20garantizar%20una%20comunicación%20efectiva.%0D%0A%0D%0ADatos%20actuales:%0D%0A- %20Nombre:%20[Su%20nombre%20actual]%0D%0A- %20Fecha%20de%20nacimiento:%20[Fecha%20de%20nacimiento%20actual]%0D%0A- %20Teléfono%20de%20contacto:%20[Teléfono%20de%20contacto%20actual]%0D%0A- %20Correo%20electrónico:%20[Correo%20electrónico%20actual]%0D%0A%0D%0ANuevos%20datos%20a%20actualizar:%0D%0A- %20Nombre:%20[Nuevo%20nombre,%20si%20aplica]%0D%0A- %20Fecha%20de%20nacimiento:%20[Nueva%20fecha%20de%20nacimiento,%20si%20aplica]%0D%0A- %20Teléfono%20de%20contacto:%20[Nuevo%20teléfono%20de%20contacto,%20si%20aplica]%0D%0A- %20Correo%20electrónico:%20[Nuevo%20correo%20electrónico,%20si%20aplica]%0D%0A%0D%0AAgradecería%20mucho%20si%20pudieran%20tomar%20un%20momento%20para%20revisar%20y%20corregir%20cualquier%20información%20desactualizada%20o%20incorrecta%20que%20pueda%20figurar%20en%20sus%20registros.%20Quedo%20a%20su%20disposición%20para%20proporcionar%20cualquier%20información%20adicional%20que%20puedan%20requerir%20para%20llevar%20a%20cabo%20esta%20actualización%20de%20manera%20oportuna.%0D%0A%0D%0AAgradezco%20su%20pronta%20atención%20a%20esta%20solicitud%20y%20quedo%20a%20la%20espera%20de%20su%20amable%20respuesta.%0D%0A%0D%0AAtentamente,%0D%0A[Su%20nombre]" th:text="#{app.perfil.datos.btn.actualizar}"/>
+                        </div>
+
+
+
+
+                    </form>
+
+                </div>
+
+            </div>
+            <button class="scroll-btn text-info">
+                <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+            </button>
+        </main>
+        <footer th:replace="layout/plantilla :: footer"/>
+    </body>
+
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="layout/plantilla :: head" />
+    <title>[[#{app.editar.tema}]]</title>
+    <body class="">
+        <header th:replace="layout/plantilla :: header"/>
+        <main>
+            <section class="w-100 gradient-custom d-flex">
+                <div class="container w-100">
+                    <div class="row w-100 h-100">
+                        <div class="col-12 w-100 col-lg-9 col-xl-7">
+                            <div class="card shadow-2-strong card-registration border-0" style="border-radius: 15px;">
+                                <div class="card-body p-md-5">
+                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">[[#{app.editar.tema}]]</h3>
+
+                                    <form th:action="@{/agregarTema}" th:object="${tema}" method="post" class="was-validated">
+
+                                        <div class="mb-3">
+                                            <label for="nombreTema" class="form-label">[[#{app.agregar.tema.nombre}]]</label>
+                                            <input type="text" class="form-control" name="nombreTema" id="nombreTema" title="Ejemplo : Lectura, Autos, Viajes... " aria-describedby="helpId" th:field="*{nombreTema}" required 
+                                                   placeholder="" >
+                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.nombre.descripcion}]]</small>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="descripcionTema" class="form-label">[[#{app.agregar.tema.descripcion}]]</label>
+                                            <input type="text" class="form-control" name="descripcionTema" id="descripcionTema" aria-describedby="helpId"
+                                                   title="Ejemplo : ¡Únete a nuestra reunión de (TEMA)! Es una oportunidad única para compartir ideas y conocer a otros apasionados de... ¡Te esperamos allí!" th:field="*{descripcionTema}"  required >
+                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.descripcion.descripcion}]] </small>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <input type="hidden" class="form-control" name="idTema"  id="idTema" aria-describedby="helpId" th:field="*{idTema}" required 
+                                                   placeholder="" >
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="hidden" class="form-control" name="imagenTema"  id="imagenTema" aria-describedby="helpId" th:field="*{imagenTema}" required 
+                                                   placeholder="" >
+                                        </div>
+                                        
+                                         <div class="mb-3">
+                                            <input type="hidden" class="form-control" name="idUsuario"  id="idUsuario" aria-describedby="helpId" th:value="*{idUsuario.idUsuario}" required 
+                                                   placeholder="" >
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="horaTema" class="form-label" >[[#{app.agregar.tema.hora}]]</label>
+                                            <input type="time" class="form-control" name="horaTema" id="horaTema" aria-describedby="helpId" th:field="*{horaTema}" required 
+                                                   placeholder="" step="1" >
+                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.hora.descripcion}]]</small>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="cuposTema" class="form-label">[[#{app.agregar.tema.cupos}]]</label>
+                                            <input type="number" class="form-control" name="cuposTema" id="cuposTema" aria-describedby="helpId" th:field="*{cuposTema}" required 
+                                                   placeholder="" >
+                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.cupos.descripcion}]]</small>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="linkMeetTema" class="form-label">[[#{app.agregar.tema.meet}]]</label>
+                                            <input type="url" class="form-control mb-1" name="linkMeetTema" id="linkMeetTema" aria-describedby="helpId" th:field="*{linkMeetTema}" required 
+                                                   placeholder="" >
+                                                <small id="helpId" class="form-text text-muted mt-3">[[#{app.agregar.tema.meet.descripcion}]]</small> 
+                                                <a href="https://meet.google.com/" class="link-dark bg-dark rounded-4 text-decoration-none bg-opacity-50 px-2" target="_blank" rel="noopener noreferrer">[[#{app.agregar.tema.meet.descripcion.link}]]</a>
+
+                                        </div>
+                                        <div th:if="${especialistass != null and not #lists.isEmpty(especialistass)}" class="mb-3">
+                                            <label for="usuarioValid" class="form-label">[[#{app.agregar.tema.especialista}]]</label>
+                                            <select class="form-select form-select-lg form-control" name="usuarioValid" id="usuarioValid" oninput="validarSelector();" required>
+                                                <option  class="bg-dark bg-opacity-50" value="null">[[#{app.agregar.tema.especialista.seleccion}]]</option>
+                                                <option  th:each="especialista : ${especialistass}" th:value="${especialista.idUsuario}"  th:text="${especialista.nombreUsuario}">specialist</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <select hidden="true" class="form-select form-select-lg form-control" name="categoria" id="categoria" oninput="validarSelector();"  required >
+                                                <option selected class="bg-dark bg-opacity-50" value="defecto">[[#{app.agregar.tema.categoria.seleccion}]]</option>
+                                            </select>
+                                        </div> 
+                                        <input type="submit" class="btn btn-success w-100 mt-4 fw-bolder m-auto" id="botonS" th:value="#{app.actualizar.tema.btn}"/>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <button class="scroll-btn text-info">
+                <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+            </button>
+        </main>
+
+        <footer th:replace="layout/plantilla :: footer"/>
+
+        <script>
+
+            var url = new URL(window.location.href);
+
+            var searchParams = new URLSearchParams(url.search);
+
+            var error = searchParams.get("error");
+            var exito = searchParams.get("exito");
+
+            if (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error,
+                    timer: 5000,
+                    didClose: () => {
+                        history.back();
+                    }
+                });
+
+
+            }
+
+            if (exito) {
+                Swal.fire({
+                    icon: 'success',
+                    title: exito,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    didClose: () => {
+                        window.location.href = '/editarTema';
+                    }
+
+                });
+            }
+
+        </script>
+    </body>
+
+</html>

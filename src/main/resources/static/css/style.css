@@ -1,0 +1,116 @@
+caption {
+  padding: 20px;
+  font-size: 28px;
+  color: #0077b6;
+}
+
+th {
+  background-color: #0096c7;
+  color: #03045e;
+}
+
+td {
+  background-color: #48cae4;
+  color: #023e8a;
+  padding: 8px;
+  text-align: center;
+}
+
+.servicio {
+  transition: .5s;
+}
+
+
+.servicio:hover {
+  width: 160px !important;
+  height: 160px !important;
+}
+
+.agrandar {
+  transition: .7s;
+}
+
+.agrandar:hover {
+  width: 22rem !important;
+  height: 19rem !important;
+
+  border: 5px solid rgba(0, 255, 191, 0.574);
+  text-align: center;
+  box-shadow: 3px 3px 10px rgba(0, 255, 191, 0.768) !important;
+}
+
+.imagenbg {
+  background-image: url("/img/back.png");
+  background-size: cover;
+}
+
+::-webkit-scrollbar {
+  background-color:transparent;
+  width: 0;
+}
+
+::-webkit-scrollbar-button {
+  background-color: transparent;
+}
+::-webkit-scrollbar-corner{
+width: 0;
+}
+
+.dark-mode {
+  background-color: #1c1c1c;
+}
+
+.scroll-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.scroll-btn i {
+  line-height: 50px;
+  padding-left: 1px;
+}
+
+.scroll-btn.show {
+  display: block;
+  opacity: 0.5;
+}
+
+.scroll-btn.show:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+
+@media screen and (max-width: 768px) {
+  .cimagen {
+    height: 300px;
+  }
+
+  #btninicio {
+    width: 100% !important;
+  }
+
+  a {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .cimagen {
+    height: 600px;
+  }
+
+}

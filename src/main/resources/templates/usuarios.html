@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head" />
+    <style>
+        .row{
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-.5 * var(--bs-gutter-x));
+            margin-left: calc(-.5 * var(--bs-gutter-x));
+            align-content: space-around;
+            justify-content: space-around;
+        }
+    </style>
+    <title>[[#{app.usuarios.plataforma}]]</title>
+
+
+
+
+    <body class="">
+        <header th:replace="layout/plantilla :: header"/>
+        <main>
+            <div
+                class="d-flex flex-wrap ps-0 p-lg-4 w-100 text-center text-white fw-bolder overflow-scroll justify-content-evenly imagenbg">
+                <div class="row w-75 m-auto row-cols-1" style="justify-content: space-evenly;">
+
+                    <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; margin-bottom: 30px; width: 50%;"
+                        class="border border-5 border-info border-opacity-50 col pt-2 pb-2">[[#{app.usuarios.plataforma}]]</h2>
+
+                    <h4 class="text-dark fw-bolder row">[[#{app.usuarios.plataforma.cantidad}]] <p
+                            class="text-white text-bg-danger w-50 m-auto m-md-0 mb-3  border rounded-5 shadow"
+                            style="text-shadow: 1px 1px 5px cyan;" th:text="${totalUsuarios}">
+                            Numero de usuarios</p>
+                    </h4>
+                </div>
+
+                <table th:if="${usuarios != null and not #lists.isEmpty(usuarios)}"
+                       class="table table-info table-hover table-group-divider table-responsive table-responsive-sm   table-striped table w-75 m-auto border border-5 border-info border-opacity-25">
+
+                    <thead class="table-light  text-decoration-underline">
+                        <tr class="rounded-4">
+                            <th scope="col">No.</th>
+                            <th scope="col">[[#{app.usuarios.plataforma.tabla.usuario}]]</th>
+                            <th scope="col">[[#{app.usuarios.plataforma.tabla.documento}]]</th>
+                            <th scope="col">[[#{app.usuarios.plataforma.tabla.categoria}]]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="usuario, contador : ${usuarios}" th:unless="${usuario.nombreUsuario == 'defaultSpecialist'}">
+                            <th scope="row" th:text="${contador.count}">No</th>
+                            <td th:text="${usuario.nombreUsuario + ' ' + usuario.apellidoUsuario }">Usuario</td>
+                            <td th:text="${usuario.numeroDocumentoUsuario}">identificación</td>
+                            <td th:text="${usuario.idCategoria.nombreCategoria}">Categoría</td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+                <div class="text-center p-2" th:if="${usuarios == null or #lists.isEmpty(usuarios)}">
+                    <span>Lista Vacía</span>
+                </div>
+            </div>
+            <button class="scroll-btn text-info">
+                <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+            </button>
+
+        </main>
+        <footer th:replace="layout/plantilla :: footer"/>
+    </body>
+
+</html>

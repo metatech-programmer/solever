@@ -1,0 +1,266 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="layout/plantilla :: head" />
+    <title>[[#{app.editar.usuario}]]</title>
+    <body class="">
+        <header th:replace="layout/plantilla :: header"/>
+        <main>
+            <section class="w-100 gradient-custom d-flex">
+                <div class="container w-100">
+                    <div class="row w-100 h-100">
+                        <div class="col-12 w-100 col-lg-9 col-xl-7">
+                            <div class="card shadow-2-strong card-registration border-0" style="border-radius: 15px;">
+                                <div class="card-body p-md-5">
+                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">[[#{app.editar.usuario}]]</h3>
+
+                                    <form th:action="@{/editarU}" th:object="${usuario}"  method="post" class="was-validated">
+                                        <input type="hidden" id="idUsuario" name="idUsuario" th:field="*{idUsuario}"/>
+                                        <input type="hidden" id="fotoCedulaUsuario" name="fotoCedulaUsuario" th:field="*{fotoCedulaUsuario}"/>
+                                        <input type="hidden" id="idCategoria" name="idCategoria" th:field="*{idCategoria}"/>
+                                        <input type="hidden" id="generoUsuario" name="generoUsuario" th:field="*{generoUsuario}"/>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+
+                                                <div class="form-outline">
+                                                    <input type="text" id="nombreUsuario" class="form-control form-control-lg" name="nombreUsuario" th:field="*{nombreUsuario}" required />
+                                                    <label class="form-label" for="nombreUsuario">[[#{registrar.nombres}]]</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+
+                                                <div class="form-outline">
+                                                    <input type="text" id="apellidoUsuario" class="form-control form-control-lg" name="apellidoUsuario" th:field="*{apellidoUsuario}" required />
+                                                    <label class="form-label" for="apellidoUsuario">[[#{registrar.apellidos}]]</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                                <div class="form-outline datepicker w-100">
+                                                    <input type="date" class="form-control form-control-lg" id="fechaNacimientoUsuario" name="fechaNacimientoUsuario" th:field="*{fechaNacimientoUsuario}"  required  />
+                                                    <label for="fechaNacimientoUsuario" class="form-label">[[#{registrar.fecha}]]</label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6 mb-4 " th:if="${usuario.generoUsuario == 'Mujer'}">
+
+                                                <h6 class="mb-2 pb-1">[[#{registrar.genero}]]</h6>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Mujer" checked="true"  />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.mujer}]]</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input  disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Mujer" />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.hombre}]]</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input  disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Otro" />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.otro}]]</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4 " th:if="${usuario.generoUsuario == 'Hombre'}">
+
+                                                <h6 class="mb-2 pb-1">[[#{registrar.genero}]]</h6>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Mujer"  />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.mujer}]]</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Mujer"  checked="true" />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.hombre}]]</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Otro" />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.otro}]]</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4 " th:if="${usuario.generoUsuario == 'Otro'}">
+
+                                                <h6 class="mb-2 pb-1">[[#{registrar.genero}]]</h6>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Mujer"  />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.mujer}]]</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input disabled="true" class="form-check-input" type="radio" name="generoUsuario"
+                                                           id="generoUsuario" value="Mujer" />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.hombre}]]</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input disabled="true" class="form-check-input" type="radio"  checked="true" name="generoUsuario"
+                                                           id="generoUsuario" value="Otro" />
+                                                    <label class="form-check-label" for="generoUsuario">[[#{registrar.genero.otro}]]</label>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline">
+                                                    <input type="tel" id="numeroTelUsuario" class="form-control form-control-lg" name="numeroTelUsuario"  th:field="*{numeroTelUsuario}"   required />
+                                                    <label class="form-label" for="numeroTelUsuario">[[#{registrar.numero.tel}]]</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline">
+                                                    <input type="number" id="numeroDocumentoUsuario"
+                                                           class="form-control form-control-lg" name="numeroDocumentoUsuario" th:field="*{numeroDocumentoUsuario}"  required />
+                                                    <label class="form-label" for="numeroDocumentoUsuario">[[#{registrar.documento}]]</label>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline">
+                                                    <input type="email" id="correoUsuario"
+                                                           class="form-control form-control-lg" name="correoUsuario"  th:field="*{correoUsuario}"  required />
+                                                    <label class="form-label" for="correoUsuario">[[#{registrar.correo}]]</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline">
+                                                    <input type="password" id="password"
+                                                           class="form-control form-control-lg" th:value="*{passwordUsuario}" oninput="validarContraseñas();"  required />
+                                                    <label class="form-label" for="password">[[#{registrar.pass}]]</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline">
+                                                    <input type="password" id="passwordUsuario"
+                                                           class="form-control form-control-lg" name="passwordUsuario" th:value="*{passwordUsuario}"  oninput="validarContraseñas();"  required />
+                                                    <label class="form-label" for="passwordUsuario">[[#{registrar.pass.rep}]]</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mt-2">
+
+                                                <div id="iguales" class="text-white w-100 fw-bold border border-1 rounded-4 text-center"></div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4 pt-2">
+                                            <input class="btn btn-success btn-lg" type="submit"  id="botonS" th:value="#{app.actualizar.usuario.btn}" />
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <button class="scroll-btn text-info">
+                <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+            </button>
+        </main>
+        <footer th:replace="layout/plantilla :: footer"/>
+
+        <script>
+
+            function validarContraseñas() {
+                var password1 = document.getElementById('password').value;
+                var password2 = document.getElementById('passwordUsuario').value;
+                var div = document.getElementById('iguales');
+
+                if (password1 === password2) {
+                    div.classList.add("bg-success");
+                    div.classList.remove("bg-secondary");
+                    div.style.transition = ".7s";
+                    div.style.boxShadow = "3px 3px 3px rgb(0,200,100)";
+                    div.textContent = 'Las contraseñas son iguales';
+                    validarSelector();
+                } else {
+                    div.classList.remove("bg-success");
+                    div.classList.add("bg-secondary");
+                    div.style.transition = ".7s";
+                    div.style.boxShadow = "3px 3px 3px red";
+                    div.textContent = 'Las contraseñas no coinciden';
+                }
+
+
+            }
+
+
+            var url = new URL(window.location.href);
+
+            var searchParams = new URLSearchParams(url.search);
+
+            var error = searchParams.get("error");
+            var exito = searchParams.get("exito");
+
+            if (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error,
+                    timer: 5000,
+                    didClose: () => {
+                       history.back();
+                    }
+                });
+
+
+            }
+
+            if (exito) {
+                Swal.fire({
+                    icon: 'success',
+                    title: exito,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    didClose: () => {
+                        window.location.href = '/editar';
+                    }
+
+                });
+            }
+        </script>
+    </body>
+
+</html>

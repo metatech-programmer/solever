@@ -1,0 +1,164 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="layout/plantilla :: head" />
+    <title>[[#{app.editar}]]</title>
+    <body class="">
+        <header th:replace="layout/plantilla :: header"/>
+
+        <div class="container container-fluid m-auto">
+            <div class="row-cols-3 d-flex flex-wrap  ">
+
+                <div class="col d-flex justify-content-center"><a name="" id="" class="btn btn-success fw-bold text-decoration-underline" href="#temas" role="button">[[#{app.btn.temas}]]</a></div>
+                <div class="col d-flex justify-content-center"><a name="" id="" class="btn btn-success fw-bold text-decoration-underline" href="#usuarios" role="button">[[#{app.btn.usuarios}]]</a></div>
+                <div class="col d-flex justify-content-center"><a name="" id="" class="btn btn-success fw-bold text-decoration-underline" href="#especialistas" role="button">[[#{app.btn.especialistas}]]</a></div>
+
+            </div>
+        </div>
+
+        <main class="p-4">
+            <div id="temas" class="d-flex flex-wrap mb-5 ps-0 p-lg-4 w-100 text-center text-white fw-bolder overflow-scroll imagenbg border rounded-5"
+                 style="height: 70vh;">
+
+                <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; margin-bottom: 30px; width: 50%;"
+                    class="border border-5 border-info border-opacity-50 pt-2 pb-2">[[#{app.editar.temas}]]</h2>
+                <hr>
+                    <table th:if="${temas != null and not #lists.isEmpty(temas)}"
+                           class="table table-info table-hover table-group-divider table-responsive table-responsive-sm   table-striped table w-75 m-auto border border-5 border-info border-opacity-25">
+
+                        <thead class="table-light  text-decoration-underline">
+                            <tr class="rounded-4">
+                                <th scope="col">No.</th>
+                                <th scope="col">[[#{app.tabla.tema}]]</th>
+                                <th scope="col">[[#{app.tabla.tema.especialista}]]</th>
+                                <th scope="col">[[#{app.editar}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="tema, contador : ${temas}">
+                                <th scope="row">[[${contador.count}]]</th>
+                                <td th:text="${tema.nombreTema}">tema</td>
+                                <td >@ [[${tema.idUsuario.nombreUsuario}]]</td>
+                                <td><a class="btn btn-success" th:href="@{/editarTema/} + ${tema.idTema}">[[#{app.editar}]]</a></td>
+                            </tr>
+                            <div class="text-center p-2" th:if="${temas == null or #lists.isEmpty(temas)}">
+                                <span>[[#{app.lista.vacia}]]</span>
+                            </div>
+                        </tbody>
+                    </table>
+            </div>
+
+            <div id="usuarios"  class="d-flex flex-wrap mb-5 ps-0 p-lg-4 w-100 text-center text-white fw-bolder overflow-scroll imagenbg border rounded-5"
+                 style="height: 70vh;">
+
+                <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; margin-bottom: 30px; width: 50%;"
+                    class="border border-5 border-info border-opacity-50 pt-2 pb-2">[[#{app.editar.usuarios}]]</h2>
+                <hr>
+                    <table th:if="${usuarios != null and not #lists.isEmpty(usuarios)}"
+                           class="table table-info table-hover table-group-divider table-responsive table-responsive-sm   table-striped table w-75 m-auto border border-5 border-info border-opacity-25">
+
+                        <thead class="table-light  text-decoration-underline">
+                            <tr class="rounded-4">
+                                <th scope="col" >Id</th>
+                                <th scope="col">[[#{app.usuarios.plataforma.tabla.usuario}]]</th>
+                                <th scope="col">[[#{app.usuarios.plataforma.tabla.documento}]]</th>
+                                <th scope="col">[[#{app.tabla.usuario.edad}]]</th>
+                                <th scope="col">[[#{app.tabla.usuario.celular}]]</th>
+                                <th scope="col">[[#{app.editar}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="usuario: ${usuarios}" th:unless="${usuario.idCategoria.nombreCategoria == 'ROLE_SPECIALIST' or usuario.idCategoria.nombreCategoria == 'ROLE_ADMIN'}">
+                                <th scope="row">[[${usuario.idUsuario}]]</th>
+                                <td th:text="${usuario.nombreUsuario + ' ' + usuario.apellidoUsuario }">nombre</td>
+                                <td th:text="${usuario.numeroDocumentoUsuario}">document</td>
+                                <td th:text="${usuario.fechaNacimientoUsuario}">edad</td>
+                                <td th:text="${usuario.numeroTelUsuario}">celular</td>
+                                <td><a class="btn btn-success" th:href="@{/editarUsuario/} + ${usuario.idUsuario}">[[#{app.editar}]]</a></td>
+                            </tr>
+                            <div class="text-center p-2" th:if="${usuarios == null or #lists.isEmpty(usuarios)}">
+                                <span>[[#{app.lista.vacia}]]</span>
+                            </div>
+                        </tbody>
+                    </table>
+            </div>
+
+            <div id="especialistas"  class="d-flex flex-wrap ps-0 p-lg-4 w-100 text-center text-white fw-bolder overflow-scroll imagenbg border rounded-5"
+                 style="height: 70vh;">
+
+                <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; margin-bottom: 30px; width: 50%;"
+                    class="border border-5 border-info border-opacity-50 pt-2 pb-2">[[#{app.editar.especialistas}]]</h2>
+                <hr>
+                    <table th:if="${usuarios != null and not #lists.isEmpty(usuarios)}"
+                           class="table table-info table-hover table-group-divider table-responsive table-responsive-sm   table-striped table w-75 m-auto border border-5 border-info border-opacity-25">
+
+                        <thead class="table-light  text-decoration-underline">
+                            <tr class="rounded-4">
+                                <th scope="col">Id.</th>
+                                <th scope="col">[[#{app.tabla.tema.especialista}]]</th>
+                                <th scope="col">[[#{app.tabla.usuario.celular}]]</th>
+                                <th scope="col">[[#{app.usuarios.plataforma.tabla.documento}]]</th>
+                                <th scope="col">[[#{app.editar}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="usuario : ${usuarios}" th:if="${usuario.idCategoria.nombreCategoria == 'ROLE_SPECIALIST'}" th:unless="${usuario.nombreUsuario == 'defaultSpecialist'}" >
+                                <th scope="row">[[${usuario.idUsuario}]]</th>
+                                <td th:text="${usuario.nombreUsuario + ' ' + usuario.apellidoUsuario }">nombre</td>
+                                <td th:text="${usuario.numeroTelUsuario }">celular</td>
+                                <td th:text="${usuario.numeroDocumentoUsuario }">document</td>
+                                <td><a class="btn btn-success" th:href="@{/editarUsuario/} + ${usuario.idUsuario}">[[#{app.editar}]]</a></td>
+                            </tr>
+                            <div class="text-center p-2" th:if="${usuarios == null or #lists.isEmpty(usuarios)}">
+                                <span>[[#{app.lista.vacia}]]</span>
+                            </div>
+                        </tbody>
+                    </table>
+            </div>
+            <button class="scroll-btn text-info">
+                <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+            </button>
+        </main>
+        <footer th:replace="layout/plantilla :: footer"/>
+
+        <script>
+
+            var url = new URL(window.location.href);
+
+            var searchParams = new URLSearchParams(url.search);
+
+            var error = searchParams.get("error");
+            var exito = searchParams.get("exito");
+
+            if (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error,
+                    timer: 5000,
+                    didClose: () => {
+                       history.back();
+                    }
+                });
+
+
+            }
+
+            if (exito) {
+                Swal.fire({
+                    icon: 'success',
+                    title: exito,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    didClose: () => {
+                        window.location.href = '/editar';
+                    }
+
+                });
+            }
+        </script>
+    </body>
+
+</html>
