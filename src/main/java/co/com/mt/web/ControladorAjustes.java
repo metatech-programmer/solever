@@ -2,7 +2,6 @@ package co.com.mt.web;
 
 import co.com.mt.dao.UsuarioDao;
 import co.com.mt.domain.Usuario;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@Slf4j
 public class ControladorAjustes {
 
     @Autowired

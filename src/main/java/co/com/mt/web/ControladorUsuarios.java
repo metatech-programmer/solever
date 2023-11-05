@@ -4,7 +4,6 @@ import co.com.mt.dao.CategoriaDao;
 import co.com.mt.dao.UsuarioDao;
 import co.com.mt.domain.Usuario;
 import co.com.mt.servicio.UsuarioService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@Slf4j
 public class ControladorUsuarios {
 
     @Autowired

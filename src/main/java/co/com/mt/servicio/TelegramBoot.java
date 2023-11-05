@@ -1,4 +1,4 @@
-package co.com.mt.servicio;
+/* package co.com.mt.servicio;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -40,3 +40,4 @@ public class TelegramBoot extends TelegramLongPollingBot {
     }
 
 }
+ */

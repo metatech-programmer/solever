@@ -9,9 +9,7 @@ import co.com.mt.domain.CategoriaTema;
 import co.com.mt.domain.CategoriaTemaId;
 import co.com.mt.domain.Tema;
 import co.com.mt.domain.Usuario;
-import co.com.mt.servicio.CategoriaTemaService;
 import co.com.mt.servicio.TemaService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -32,7 +30,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -42,7 +39,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@Slf4j
 public class ControladorInicio {
 
     @Autowired
@@ -60,8 +56,6 @@ public class ControladorInicio {
     @Autowired
     private CategoriaTemaDao categoriaTemaDao;
 
-    @Autowired
-    private CategoriaTemaService categoriaTemaService;
 
     @Autowired
     private CategoriaDao categoriaDao;
@@ -69,8 +63,6 @@ public class ControladorInicio {
     @Value("file:src/main/resources/static/img/")
     private Resource directorioImagenes;
 
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     @GetMapping("/app")
     public String inicio(Model model, @AuthenticationPrincipal User user) {
@@ -132,10 +124,6 @@ public class ControladorInicio {
 
     @PostMapping("/agregarTema")
     public String guardar(@Validated Tema tema, @RequestParam(value = "imagen", required = false) MultipartFile imagenTema, @RequestParam("usuarioValid") String usuario, @RequestParam("categoria") String categoria, RedirectAttributes redirectAttributes, Errors errores, BindingResult result) {
-
-        log.info(usuario + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info(usuario + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info(categoria + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
         if (!"defecto".equals(categoria)) {
             if (errores.hasErrors() || "null".equals(categoria) || "null".equals(usuario) || temaDao.existsBynombreTema(tema.getNombreTema()) || temaDao.existsBylinkMeetTema(tema.getLinkMeetTema())) {
@@ -294,7 +282,7 @@ public class ControladorInicio {
                     return "redirect:/eliminar";
                 }
             } catch (IOException e) {
-                log.error(e.getMessage());
+                System.out.println(e.getMessage());
 
             }
 

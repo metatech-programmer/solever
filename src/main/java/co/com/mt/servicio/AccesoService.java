@@ -2,7 +2,6 @@ package co.com.mt.servicio;
 
 import co.com.mt.domain.Categoria;
 import java.util.ArrayList;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +16,6 @@ import co.com.mt.dao.UsuarioDao;
 import java.util.List;
 
 @Service("userDetailsService")
-@Slf4j
 public class AccesoService implements UserDetailsService {
 
     private final UsuarioDao usuarioDao;
