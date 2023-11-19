@@ -17,9 +17,8 @@ td {
 }
 
 .servicio {
-  transition: .5s;
+  transition: 0.5s;
 }
-
 
 .servicio:hover {
   width: 160px !important;
@@ -27,7 +26,7 @@ td {
 }
 
 .agrandar {
-  transition: .7s;
+  transition: 0.7s;
 }
 
 .agrandar:hover {
@@ -45,15 +44,15 @@ td {
 }
 
 ::-webkit-scrollbar {
-  background-color:transparent;
+  background-color: transparent;
   width: 0;
 }
 
 ::-webkit-scrollbar-button {
   background-color: transparent;
 }
-::-webkit-scrollbar-corner{
-width: 0;
+::-webkit-scrollbar-corner {
+  width: 0;
 }
 
 .dark-mode {
@@ -93,10 +92,10 @@ width: 0;
   transform: scale(1.1);
 }
 
-
 @media screen and (max-width: 768px) {
   .cimagen {
     height: 300px;
+    object-fit: cover;
   }
 
   #btninicio {
@@ -111,6 +110,16 @@ width: 0;
 @media screen and (min-width: 768px) {
   .cimagen {
     height: 600px;
+    object-fit: cover;
   }
+}
 
+.link-u {
+transition: 500ms all;
+overflow: hidden;
+}
+.link-u:hover {
+  text-decoration: underline;
+  font-size: 15px;
+  overflow: hidden;
 }
