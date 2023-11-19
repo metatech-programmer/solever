@@ -1,226 +1,266 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head th:replace="layout/plantilla :: head" />
-    <title>[[#{index.inicio}]]</title>
-    <body class="">
-        <header th:replace="layout/plantilla :: header"/>
-        <main>
+<head th:replace="layout/plantilla :: head"></head>
+<title>[[#{index.inicio}]]</title>
 
-            <div class="d-flex flex-wrap w-100 p-0 m-0 justify-content-evenly imagenbg  ">
-                <div  sec:authorize="hasRole('ROLE_ADMIN')"
-                      class="container mt-3 d-flex flex-wrap justify-content-evenly align-content-center border-bottom border-1 border-info pb-3">
-                    <button  name="" id="" class="btn btn-primary fw-bolder m-1" data-bs-toggle="modal"
-                             data-bs-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i>
-                        [[#{app.agregar}]]</button>
+<body class="">
+    <header th:replace="layout/plantilla :: header"></header>
+    <main>
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content fw-bolder" id="modal">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{app.agregar.tema.titulo}]]</h1>
-                                    <a type="button" class="btn-close" id="btnmodal" data-bs-dismiss="modal"
-                                       aria-label="Close"></a>
-                                </div>
-                                <div class="modal-body"
-                                     style="background-image: url(./img/back.png); background-size: cover; filter: grayscale(100%);">
-                                    <form th:action="@{/agregarTema}" th:object="${tema}" method="post" class="was-validated"  enctype="multipart/form-data">
+        <div class="d-flex flex-wrap w-100 p-0 m-0 justify-content-evenly imagenbg  ">
+            <div sec:authorize="hasRole('ROLE_ADMIN')"
+                class="container mt-3 d-flex flex-wrap justify-content-evenly align-content-center border-bottom border-1 border-info pb-3">
+                <button name="" id="" class="btn btn-primary fw-bolder m-1" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i>
+                    [[#{app.agregar}]]</button>
 
-                                        <div class="mb-3">
-                                            <label for="nombreTema" class="form-label">[[#{app.agregar.tema.nombre}]]</label>
-                                            <input type="text" class="form-control" name="nombreTema" id="nombreTema" title="Ejemplo : Lectura, Autos, Viajes... " aria-describedby="helpId"
-                                                   placeholder="" required>
-                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.nombre.descripcion}]]</small>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="descripcionTema" class="form-label">[[#{app.agregar.tema.descripcion}]]</label>
-                                            <input type="text" class="form-control" name="descripcionTema" id="descripcionTema" aria-describedby="helpId"
-                                                   title="Ejemplo : ¡Únete a nuestra reunión de (TEMA)! Es una oportunidad única para compartir ideas y conocer a otros apasionados de... ¡Te esperamos allí!" required>
-                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.descripcion.descripcion}]]</small>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="imagen" class="form-label">[[#{app.agregar.tema.imagen}]]</label>
-                                            <input type="file" class="form-control" name="imagen"  accept="image/*" id="imagen" aria-describedby="helpId"
-                                                   placeholder="" required>
-                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.descripcion}]]</small>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="horaTema" class="form-label" >[[#{app.agregar.tema.hora}]]</label>
-                                            <input type="time" class="form-control" name="horaTema" id="horaTema" aria-describedby="helpId"
-                                                   placeholder="" step="1" required>
-                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.hora.descripcion}]]</small>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="cuposTema" class="form-label">[[#{app.agregar.tema.cupos}]]</label>
-                                            <input type="number" class="form-control" name="cuposTema" id="cuposTema" aria-describedby="helpId"
-                                                   placeholder="" required>
-                                                <small id="helpId" class="form-text text-muted">[[#{app.agregar.tema.cupos.descripcion}]].</small>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="linkMeetTema" class="form-label">[[#{app.agregar.tema.meet}]]</label>
-                                            <input type="url" class="form-control mb-1" name="linkMeetTema" id="linkMeetTema" aria-describedby="helpId"
-                                                   placeholder="" required>
-                                                <small id="helpId" class="form-text text-muted mt-3">[[#{app.agregar.tema.meet.descripcion}]]</small> 
-                                                <a href="https://moderated.jitsi.net/" class="link-dark bg-dark rounded-4 text-decoration-none bg-opacity-50 px-2" target="_blank" rel="noopener noreferrer">[[#{app.agregar.tema.meet.descripcion.link}]]</a>
-
-                                        </div>
-
-                                        <div th:if="${especialistas != null and not #lists.isEmpty(especialistas)}"  class="mb-3">
-                                            <label for="usuarioValid" class="form-label">[[#{app.agregar.tema.especialista}]]</label>
-                                            <select class="form-select form-select-lg form-control" name="usuarioValid" id="usuarioValid" oninput="validarSelector();" required>
-                                                <option selected class="bg-dark bg-opacity-50" value="null">[[#{app.agregar.tema.especialista.seleccion}]]</option>
-                                                <option  th:each="especialista : ${especialistas}" th:value="${especialista.idUsuario}"  th:text="${especialista.nombreUsuario}">specialist</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="categoria" class="form-label">[[#{app.agregar.tema.categoria}]]</label>
-                                            <select class="form-select form-select-lg form-control" name="categoria" id="categoria" oninput="validarSelector();" required>
-                                                <option selected class="bg-dark bg-opacity-50" value="null">[[#{app.agregar.tema.categoria.seleccion}]]</option>
-                                                <option value="ROLE_TEEN">Adolescente ( 18 - 26 )</option>
-                                                <option value="ROLE_ADULT">Adulto ( 27 - 59 )</option>
-                                                <option value="ROLE_ELDERLY">Adulto Mayor ( 60+ )</option>
-                                                <option value="ROLE_TEEN,ROLE_ADULT">[[#{app.agregar.tema.categoria.seleccion.a.ad}]]</option>
-                                                <option value="ROLE_TEEN,ROLE_ELDERLY">[[#{app.agregar.tema.categoria.seleccion.a.adm}]]</option>
-                                                <option value="ROLE_ADULT,ROLE_ELDERLY">[[#{app.agregar.tema.categoria.seleccion.ad.adm}]]</option>
-                                                <option value="ROLE_TEEN,ROLE_ADULT,ROLE_ELDERLY">[[#{app.agregar.tema.categoria.seleccion.todos}]]</option>
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer bg-dark border border-3 rounded-2 border-info ">
-                                            <button type="button" class="btn btn-danger m-auto" data-bs-dismiss="modal">[[#{app.agregar.tema.btn.cerrar}]]</button>
-                                            <input type="button" class="btn btn-secondary w-75 fw-bolder m-auto" id="botonS" th:value="#{app.agregar.tema.btn.crear}"/>
-                                        </div>
-                                    </form>
-                                </div>
-
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content fw-bolder" id="modal">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{app.agregar.tema.titulo}]]</h1>
+                                <a type="button" class="btn-close" id="btnmodal" data-bs-dismiss="modal"
+                                    aria-label="Close"></a>
                             </div>
+                            <div class="modal-body"
+                                style="background-image: url(./img/back.png); background-size: cover; filter: grayscale(100%);">
+                                <form th:action="@{/agregarTema}" th:object="${tema}" method="post"
+                                    class="was-validated" enctype="multipart/form-data">
+
+                                    <div class="mb-3">
+                                        <label for="nombreTema"
+                                            class="form-label">[[#{app.agregar.tema.nombre}]]</label>
+                                        <input type="text" class="form-control" name="nombreTema" id="nombreTema"
+                                            title="Ejemplo : Lectura, Autos, Viajes... " aria-describedby="helpId"
+                                            placeholder="" required>
+                                        <small id="helpId"
+                                            class="form-text text-muted">[[#{app.agregar.tema.nombre.descripcion}]]</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="descripcionTema"
+                                            class="form-label">[[#{app.agregar.tema.descripcion}]]</label>
+                                        <input type="text" class="form-control" name="descripcionTema"
+                                            id="descripcionTema" aria-describedby="helpId"
+                                            title="Ejemplo : ¡Únete a nuestra reunión de (TEMA)! Es una oportunidad única para compartir ideas y conocer a otros apasionados de... ¡Te esperamos allí!"
+                                            required>
+                                        <small id="helpId"
+                                            class="form-text text-muted">[[#{app.agregar.tema.descripcion.descripcion}]]</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="imagen" class="form-label">[[#{app.agregar.tema.imagen}]]</label>
+                                        <input type="file" class="form-control" name="imagen" accept="image/*"
+                                            id="imagen" aria-describedby="helpId" placeholder="" required>
+                                        <small id="helpId"
+                                            class="form-text text-muted">[[#{app.agregar.tema.descripcion}]]</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="horaTema" class="form-label">[[#{app.agregar.tema.hora}]]</label>
+                                        <input type="time" class="form-control" name="horaTema" id="horaTema"
+                                            aria-describedby="helpId" placeholder="" step="1" required>
+                                        <small id="helpId"
+                                            class="form-text text-muted">[[#{app.agregar.tema.hora.descripcion}]]</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="cuposTema" class="form-label">[[#{app.agregar.tema.cupos}]]</label>
+                                        <input type="number" class="form-control" name="cuposTema" id="cuposTema"
+                                            aria-describedby="helpId" placeholder="" required>
+                                        <small id="helpId"
+                                            class="form-text text-muted">[[#{app.agregar.tema.cupos.descripcion}]].</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="linkMeetTema"
+                                            class="form-label">[[#{app.agregar.tema.meet}]]</label>
+                                        <input type="url" class="form-control mb-1" name="linkMeetTema"
+                                            id="linkMeetTema" aria-describedby="helpId" placeholder="" required>
+                                        <small id="helpId"
+                                            class="form-text text-muted mt-3">[[#{app.agregar.tema.meet.descripcion}]]</small>
+                                        <a href="https://moderated.jitsi.net/"
+                                            class="link-dark bg-dark rounded-4 text-decoration-none bg-opacity-50 px-2"
+                                            target="_blank"
+                                            rel="noopener noreferrer">[[#{app.agregar.tema.meet.descripcion.link}]]</a>
+
+                                    </div>
+
+                                    <div th:if="${especialistas != null and not #lists.isEmpty(especialistas)}"
+                                        class="mb-3">
+                                        <label for="usuarioValid"
+                                            class="form-label">[[#{app.agregar.tema.especialista}]]</label>
+                                        <select class="form-select form-select-lg form-control" name="usuarioValid"
+                                            id="usuarioValid" oninput="validarSelector();" required>
+                                            <option selected class="bg-dark bg-opacity-50" value="null">
+                                                [[#{app.agregar.tema.especialista.seleccion}]]</option>
+                                            <option th:each="especialista : ${especialistas}"
+                                                th:value="${especialista.idUsuario}"
+                                                th:text="${especialista.nombreUsuario}">specialist</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="categoria"
+                                            class="form-label">[[#{app.agregar.tema.categoria}]]</label>
+                                        <select class="form-select form-select-lg form-control" name="categoria"
+                                            id="categoria" oninput="validarSelector();" required>
+                                            <option selected class="bg-dark bg-opacity-50" value="null">
+                                                [[#{app.agregar.tema.categoria.seleccion}]]</option>
+                                            <option value="ROLE_TEEN">Adolescente ( 18 - 26 )</option>
+                                            <option value="ROLE_ADULT">Adulto ( 27 - 59 )</option>
+                                            <option value="ROLE_ELDERLY">Adulto Mayor ( 60+ )</option>
+                                            <option value="ROLE_TEEN,ROLE_ADULT">
+                                                [[#{app.agregar.tema.categoria.seleccion.a.ad}]]</option>
+                                            <option value="ROLE_TEEN,ROLE_ELDERLY">
+                                                [[#{app.agregar.tema.categoria.seleccion.a.adm}]]</option>
+                                            <option value="ROLE_ADULT,ROLE_ELDERLY">
+                                                [[#{app.agregar.tema.categoria.seleccion.ad.adm}]]</option>
+                                            <option value="ROLE_TEEN,ROLE_ADULT,ROLE_ELDERLY">
+                                                [[#{app.agregar.tema.categoria.seleccion.todos}]]</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer bg-dark border border-3 rounded-2 border-info ">
+                                        <button type="button" class="btn btn-danger m-auto"
+                                            data-bs-dismiss="modal">[[#{app.agregar.tema.btn.cerrar}]]</button>
+                                        <input type="button" class="btn btn-secondary w-75 fw-bolder m-auto" id="botonS"
+                                            th:value="#{app.agregar.tema.btn.crear}" />
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
-
-                    <a name="" id="" class="btn btn-success fw-bolder m-1" th:href="@{editar}" role="button"><i
-                            class="fa fa-edit" aria-hidden="true" ></i> [[#{app.editar}]]</a>
-                    <a name="" id="" class="btn btn-danger fw-bolder m-1"  th:href="@{eliminar}"><i
-                            class="fa fa-trash" aria-hidden="true" ></i>[[#{app.eliminar}]]</a>
                 </div>
 
-                <div class="w-100 m-4">
-                    <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; width: 50%; text-align: center; color: rgb(255, 255, 255);"
-                        class="border border-5 border-info border-opacity-50 pt-2 pb-2">[[#{index.servicios.reuniones}]]</h2>
-
-                </div>
-                <div sec:authorize="!hasAnyRole('ROLE_ADMIN', 'ROLE_SPECIALIST')">
-                    <div th:if="${temasC != null and not #lists.isEmpty(temasC)}"  class="d-flex flex-wrap w-100 justify-content-evenly bg-light bg-opacity-50 m-4 border border-3 border-info rounded-5"
-                         >
-                        <div  th:each="temas : ${temasC}" class="card text-bg-dark p-4 agrandar"
-                              th:style="'background-image:url(/img/' + ${temas.imagenTema} + '); width: 20rem; margin: 25px; box-shadow: 13px 8px 15px #00d5ff; background-size: cover; height: 270px; text-shadow: 3px 3px 3px royalblue;'">
-                            <div class="card-img-overlay bg-black bg-opacity-50 overflow-hidden">
-                                <h5 class="card-title" th:text="${temas.nombreTema}"></h5>
-                                <p class="card-text" th:text="${temas.descripcionTema}">
-                                    Descripcion</p>
-                                <p class="card-text"><small>[[#{app.empieza.reunion}]]</small><a name="" id="" class="btn btn-primary m-3" th:href="${temas.linkMeetTema}" role="button" target="_blank">[[#{app.empieza.reunion.btn}]]</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center p-2" th:if="${temasC == null or #lists.isEmpty(temasC)}">
-                        <span>[[#{app.lista.vacia}]]</span>
-                    </div>
-                </div>
-                <div sec:authorize="hasRole('ROLE_ADMIN')">
-                    <div th:iif="${temas != null and not #lists.isEmpty(temas)}"  class="d-flex flex-wrap w-100 justify-content-evenly bg-light bg-opacity-50 m-4 border border-3 border-info rounded-5">
-                        <div th:each="tema : ${temas}"  class="card text-bg-dark p-4 agrandar"
-                             th:style="'background-image:url(/img/' + ${tema.imagenTema} + '); width: 20rem; margin: 25px; box-shadow: 13px 8px 15px #00d5ff; background-size: cover; height: 270px; text-shadow: 3px 3px 3px royalblue;'">
-                            <div class="card-img-overlay bg-black bg-opacity-50 overflow-hidden">
-                                <h5 class="card-title" th:text="${tema.nombreTema}"></h5>
-                                <p class="card-text" th:text="${tema.descripcionTema}">
-                                    Descripcion</p>
-                                <p class="card-text"><small>[[#{app.empieza.reunion}]]</small><a name="" id="" class="btn btn-primary m-3" th:href="${tema.linkMeetTema}" role="button" target="_blank">[[#{app.empieza.reunion.btn}]]</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center p-2" th:if="${temas == null or #lists.isEmpty(temas)}">
-                        <span>[[#{app.lista.vacia}]]</span>
-                    </div>
-                </div>
-                <div sec:authorize="hasRole('ROLE_SPECIALIST')">
-                    <div th:if="${temasUsu != null and not #lists.isEmpty(temasUsu)}"  class="d-flex flex-wrap w-100 justify-content-evenly bg-light bg-opacity-50 m-4 border border-3 border-info rounded-5">
-                        <div  th:each="temas : ${temasUsu}" class="card text-bg-dark p-4 agrandar"
-                              th:style="'background-image:url(/img/' + ${temas.imagenTema} + '); width: 20rem; margin: 25px; box-shadow: 13px 8px 15px #00d5ff; background-size: cover; height: 270px; text-shadow: 3px 3px 3px royalblue;'">
-                            <div class="card-img-overlay bg-black bg-opacity-50 overflow-hidden">
-                                <h5 class="card-title" th:text="${temas.nombreTema}"></h5>
-                                <p class="card-text" th:text="${temas.descripcionTema}">
-                                    Descripcion</p>
-                                <p class="card-text"><small>[[#{app.empieza.reunion}]]</small><a name="" id="" class="btn btn-primary m-3" th:href="${temas.linkMeetTema}" role="button" target="_blank">[[#{app.empieza.reunion.btn}]]</a></p>
-                            </div>
-                        </div>.
-                    </div>
-                    <div class="text-center p-2" th:if="${temasUsu == null or #lists.isEmpty(temasUsu)}">
-                        <span>[[#{app.lista.vacia}]]</span>
-                    </div>
-                </div>
+                <a name="" id="" class="btn btn-success fw-bolder m-1" th:href="@{editar}" role="button"><i
+                        class="fa fa-edit" aria-hidden="true"></i> [[#{app.editar}]]</a>
+                <a name="" id="" class="btn btn-danger fw-bolder m-1" th:href="@{eliminar}"><i class="fa fa-trash"
+                        aria-hidden="true"></i>[[#{app.eliminar}]]</a>
             </div>
 
+            <div class="w-100 m-4">
+                <h2 style="text-shadow: 3px 2px 10px #021a20; background: #15a2d2; border-radius: 50px; margin: auto; width: 50%; text-align: center; color: rgb(255, 255, 255);"
+                    class="border border-5 border-info border-opacity-50 pt-2 pb-2">[[#{index.servicios.reuniones}]]
+                </h2>
+
+            </div>
+            <div sec:authorize="!hasAnyRole('ROLE_ADMIN', 'ROLE_SPECIALIST')">
+                <div th:if="${temasC != null and not #lists.isEmpty(temasC)}"
+                    class="d-flex flex-wrap w-100 justify-content-evenly bg-light bg-opacity-50 m-4 border border-3 border-info rounded-5">
+                    <div th:each="temas : ${temasC}" class="card text-bg-dark p-4 agrandar"
+                        th:style="'background-image:url(/img/' + ${temas.imagenTema} + '); width: 20rem; margin: 25px; box-shadow: 13px 8px 15px #00d5ff; background-size: cover; height: 270px; text-shadow: 3px 3px 3px royalblue;'">
+                        <div class="card-img-overlay bg-black bg-opacity-50 overflow-hidden">
+                            <h5 class="card-title" th:text="${temas.nombreTema}"></h5>
+                            <p class="card-text" th:text="${temas.descripcionTema}">
+                                Descripcion</p>
+                            <p class="card-text"><small>[[#{app.empieza.reunion}]]</small><a name="" id=""
+                                    class="btn btn-primary m-3" th:href="${temas.linkMeetTema}" role="button"
+                                    target="_blank">[[#{app.empieza.reunion.btn}]]</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center p-2" th:if="${temasC == null or #lists.isEmpty(temasC)}">
+                    <span>[[#{app.lista.vacia}]]</span>
+                </div>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <div th:iif="${temas != null and not #lists.isEmpty(temas)}"
+                    class="d-flex flex-wrap w-100 justify-content-evenly bg-light bg-opacity-50 m-4 border border-3 border-info rounded-5">
+                    <div th:each="tema : ${temas}" class="card text-bg-dark p-4 agrandar"
+                        th:style="'background-image:url(/img/' + ${tema.imagenTema} + '); width: 20rem; margin: 25px; box-shadow: 13px 8px 15px #00d5ff; background-size: cover; height: 270px; text-shadow: 3px 3px 3px royalblue;'">
+                        <div class="card-img-overlay bg-black bg-opacity-50 overflow-hidden">
+                            <h5 class="card-title" th:text="${tema.nombreTema}"></h5>
+                            <p class="card-text" th:text="${tema.descripcionTema}">
+                                Descripcion</p>
+                            <p class="card-text"><small>[[#{app.empieza.reunion}]]</small><a name="" id=""
+                                    class="btn btn-primary m-3" th:href="${tema.linkMeetTema}" role="button"
+                                    target="_blank">[[#{app.empieza.reunion.btn}]]</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center p-2" th:if="${temas == null or #lists.isEmpty(temas)}">
+                    <span>[[#{app.lista.vacia}]]</span>
+                </div>
+            </div>
+            <div sec:authorize="hasRole('ROLE_SPECIALIST')">
+                <div th:if="${temasUsu != null and not #lists.isEmpty(temasUsu)}"
+                    class="d-flex flex-wrap w-100 justify-content-evenly bg-light bg-opacity-50 m-4 border border-3 border-info rounded-5">
+                    <div th:each="temas : ${temasUsu}" class="card text-bg-dark p-4 agrandar"
+                        th:style="'background-image:url(/img/' + ${temas.imagenTema} + '); width: 20rem; margin: 25px; box-shadow: 13px 8px 15px #00d5ff; background-size: cover; height: 270px; text-shadow: 3px 3px 3px royalblue;'">
+                        <div class="card-img-overlay bg-black bg-opacity-50 overflow-hidden">
+                            <h5 class="card-title" th:text="${temas.nombreTema}"></h5>
+                            <p class="card-text" th:text="${temas.descripcionTema}">
+                                Descripcion</p>
+                            <p class="card-text"><small>[[#{app.empieza.reunion}]]</small><a name="" id=""
+                                    class="btn btn-primary m-3" th:href="${temas.linkMeetTema}" role="button"
+                                    target="_blank">[[#{app.empieza.reunion.btn}]]</a></p>
+                        </div>
+                    </div>.
+                </div>
+                <div class="text-center p-2" th:if="${temasUsu == null or #lists.isEmpty(temasUsu)}">
+                    <span>[[#{app.lista.vacia}]]</span>
+                </div>
+            </div>
+        </div>
 
 
 
-            <button class="scroll-btn text-info">
-                <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
-            </button>
-        </main>
-        <footer th:replace="layout/plantilla :: footer"/>
 
-        <script>
+        <button class="scroll-btn text-info">
+            <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+        </button>
+    </main>
+    <footer th:replace="layout/plantilla :: footer"></footer>
 
-            var url = new URL(window.location.href);
-            var searchParams = new URLSearchParams(url.search);
-            var error = searchParams.get("error");
-            var exito = searchParams.get("exito");
-            if (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error,
-                    timer: 5000,
-                    didClose: () => {
-                        history.back();
-                    }
-                });
-            }
+    <script>
 
-            if (exito) {
-                Swal.fire({
-                    icon: 'success',
-                    title: exito,
-                    showConfirmButton: true,
-                    timer: 5000,
-                    didClose: () => {
-                        window.location.href = '/app';
-                    }
+        var url = new URL(window.location.href);
+        var searchParams = new URLSearchParams(url.search);
+        var error = searchParams.get("error");
+        var exito = searchParams.get("exito");
+        if (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error,
+                timer: 5000,
+                didClose: () => {
+                    history.back();
+                }
+            });
+        }
 
-                });
-            }
-
-            function validarSelector() {
-                var btn = document.getElementById('botonS');
-                var option1 = document.getElementById('usuarioValid');
-                var option2 = document.getElementById('categoria');
-                var selectedIndex1 = option1.selectedIndex;
-                var selectedIndex2 = option2.selectedIndex;
-                if (selectedIndex1 !== 0 && selectedIndex2 !== 0) {
-                    btn.type = "submit";
-                } else {
-                    btn.type = "button";
+        if (exito) {
+            Swal.fire({
+                icon: 'success',
+                title: exito,
+                showConfirmButton: true,
+                timer: 5000,
+                didClose: () => {
+                    window.location.href = '/app';
                 }
 
+            });
+        }
+
+        function validarSelector() {
+            var btn = document.getElementById('botonS');
+            var option1 = document.getElementById('usuarioValid');
+            var option2 = document.getElementById('categoria');
+            var selectedIndex1 = option1.selectedIndex;
+            var selectedIndex2 = option2.selectedIndex;
+            if (selectedIndex1 !== 0 && selectedIndex2 !== 0) {
+                btn.type = "submit";
+            } else {
+                btn.type = "button";
             }
-        </script>
-    </body>
+
+        }
+    </script>
+</body>
 
 </html>

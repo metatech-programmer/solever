@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,9 +44,9 @@ public class Tema implements Serializable {
     private BigDecimal cuposTema;
     
     @NotEmpty
-    @DateTimeFormat(pattern = "HH:mm:ss") 
+    @DateTimeFormat(pattern = "HH:mm") 
     @Column(name = "hora_tema", nullable = false)
-    private Time horaTema;
+    private LocalTime horaTema;
     
     @NotEmpty
     @Column(name = "descripcion_tema", nullable = false)

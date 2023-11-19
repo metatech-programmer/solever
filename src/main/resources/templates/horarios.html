@@ -3,13 +3,13 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head th:replace="layout/plantilla :: head" />
+    <head th:replace="layout/plantilla :: head" ></head>
     <title>[[#{app.horarios}]]</title>
 
 
     <body>
 
-        <header th:replace="layout/plantilla :: header"/>
+        <header th:replace="layout/plantilla :: header"></header>
         <main>
 
             <div class="d-flex flex-wrap ps-0 p-lg-4 w-100 text-center text-white fw-bolder overflow-scroll imagenbg">
@@ -76,6 +76,6 @@
                 <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
             </button>
         </main>
-        <footer th:replace="layout/plantilla :: footer"/>
+        <footer th:replace="layout/plantilla :: footer"></footer>
     </body>
 </html>
