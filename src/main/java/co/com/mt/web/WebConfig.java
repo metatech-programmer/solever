@@ -46,10 +46,10 @@ public class WebConfig implements WebMvcConfigurer {
         registro.addViewController("/editarT");
     }
 
-    @Bean
+  /*   @Bean
     public ErrorController errorController() {
         return new CustomErrorController();
-    }
+    } */
     
     
     

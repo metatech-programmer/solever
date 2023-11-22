@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;

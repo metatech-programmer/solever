@@ -26,15 +26,12 @@ td {
 }
 
 .agrandar {
-  transition: 0.7s;
+  transition: 0.3s;
 }
 
 .agrandar:hover {
-  width: 22rem !important;
-  height: 19rem !important;
-
-  border: 5px solid rgba(0, 255, 191, 0.574);
-  text-align: center;
+ font-size: 17px;
+  border: 5px solid rgba(0, 255, 191, 0.267);
   box-shadow: 3px 3px 10px rgba(0, 255, 191, 0.768) !important;
 }
 
@@ -117,9 +114,9 @@ td {
 .link-u {
 transition: 500ms all;
 overflow: hidden;
+text-wrap: balance;
 }
 .link-u:hover {
   text-decoration: underline;
   font-size: 15px;
-  overflow: hidden;
 }

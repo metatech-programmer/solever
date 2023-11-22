@@ -1,4 +1,4 @@
-package co.com.mt.web;
+/* package co.com.mt.web;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import org.glassfish.grizzly.http.util.HttpStatus;
@@ -32,3 +32,4 @@ public class CustomErrorController implements ErrorController {
         return "/error";
     }
 }
+ */

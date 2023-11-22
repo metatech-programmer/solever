@@ -30,94 +30,96 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ControladorHorarios {
 
-    @Autowired
-    private UsuarioService usuarioService;
+        @Autowired
+        private UsuarioService usuarioService;
 
-    @Autowired
-    private UsuarioDao usuarioDao;
+        @Autowired
+        private UsuarioDao usuarioDao;
 
-    @Autowired
-    private TemaService temaService;
+        @Autowired
+        private TemaService temaService;
 
-    @Autowired
-    private TemaDao temaDao;
+        @Autowired
+        private TemaDao temaDao;
 
-    @Autowired
-    private CategoriaTemaDao categoriaTemaDao;
+        @Autowired
+        private CategoriaTemaDao categoriaTemaDao;
 
-    @GetMapping("/horarios")
-    public String inicio(Model model, @AuthenticationPrincipal User user) {
+        @GetMapping("/horarios")
+        public String inicio(Model model, @AuthenticationPrincipal User user) {
 
-        //Declaraciones y consultas
-        //Dia
-        String hora = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        Time horaComparada = Time.valueOf(hora);
+                // Declaraciones y consultas
+                // Dia
+                LocalTime hora = LocalTime.now();
+                //Time horaComparada = Time.valueOf(hora);
 
-//      usuarios
-        var usuarios = usuarioService.listarUsuarios();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Usuario usuario = usuarioDao.findBycorreoUsuario(username);
-        String nombre = usuario.getNombreUsuario();
+                // usuarios
+                var usuarios = usuarioService.listarUsuarios();
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                String username = authentication.getName();
+                Usuario usuario = usuarioDao.findBycorreoUsuario(username);
+                String nombre = usuario.getNombreUsuario();
 
-        Categoria categoria = usuario.getIdCategoria();
+                Categoria categoria = usuario.getIdCategoria();
 
-//      Temas
-        var temas = temaService.listarTemas();
-        List<Tema> temasList = temaDao.findAllByidUsuario(usuario);
-          
-        if (!"ROLE_ADMIN".equals(categoria.getNombreCategoria()) || !"ROLE_SPECIALIST".equals(categoria.getNombreCategoria())) {
+                // Temas
+                var temas = temaService.listarTemas();
+                List<Tema> temasList = temaDao.findAllByidUsuario(usuario);
 
-//                Temas por categoria 
-            List<CategoriaTema> categoriasTemas = categoriaTemaDao.findAllByCategoria(categoria);
+                if (!"ROLE_ADMIN".equals(categoria.getNombreCategoria())
+                                || !"ROLE_SPECIALIST".equals(categoria.getNombreCategoria())) {
 
-            if (!categoriasTemas.toString().isEmpty()) {
-                List<Long> idTemas = categoriasTemas.stream()
-                        .map(t -> t.getId().getIdTema())
-                        .collect(Collectors.toList());
+                        // Temas por categoria
+                        List<CategoriaTema> categoriasTemas = categoriaTemaDao.findAllByCategoria(categoria);
 
-                Iterable<Tema> temasC = temaDao.findAllById(idTemas);
+                        if (!categoriasTemas.toString().isEmpty()) {
+                                List<Long> idTemas = categoriasTemas.stream()
+                                                .map(t -> t.getId().getIdTema())
+                                                .collect(Collectors.toList());
 
-                model.addAttribute("temasC", temasC);
+                                Iterable<Tema> temasC = temaDao.findAllById(idTemas);
 
-            }
+                                model.addAttribute("temasC", temasC);
+
+                        }
+                }
+
+                //
+                // agregar al modelo
+                // usuarios
+                model.addAttribute(
+                                "nombreUsu", nombre);
+                model.addAttribute(
+                                "usuarios", usuarios);
+                model.addAttribute(
+                                "totalUsuarios", usuarios.size());
+
+                // Temas
+                model.addAttribute(
+                                "temas", temas);
+                model.addAttribute(
+                                "temasUsu", temasList);
+                model.addAttribute(
+                                "hora", hora);
+
+                return "horarios";
         }
 
-//      
-//agregar al modelo 
-//      usuarios
-        model.addAttribute(
-                "nombreUsu", nombre);
-        model.addAttribute(
-                "usuarios", usuarios);
-        model.addAttribute(
-                "totalUsuarios", usuarios.size());
+        @GetMapping("/cupos/{id}")
+        public String getCupo(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+                Optional<Tema> temaid = temaDao.findById(id);
+                BigDecimal cupos = temaid.orElse(null).getCuposTema();
 
-//      Temas
-        model.addAttribute(
-                "temas", temas);
-        model.addAttribute(
-                "temasUsu", temasList);
-        model.addAttribute(
-                "hora", horaComparada);
+                if (cupos == null || !"0".equals(cupos.toString())) {
+                        cupos = cupos.subtract(BigDecimal.ONE);
+                        Tema tema = temaid.orElse(null);
+                        tema.setCuposTema(cupos);
 
-        return "horarios";
-    }
-
-    @GetMapping("/cupos/{id}")
-    public String getCupo(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
-        Optional<Tema> temaid = temaDao.findById(id);
-        BigDecimal cupos = temaid.orElse(null).getCuposTema();
-        
-        if (cupos == null || !"0".equals(cupos.toString())) {
-            cupos = cupos.subtract(BigDecimal.ONE);
-            Tema tema = temaid.orElse(null);
-            tema.setCuposTema(cupos);
-
-            temaDao.save(tema);
+                        temaDao.save(tema);
+                }
+                redirectAttributes.addAttribute("exito",
+                                "FELICIDADES! Ya eres parte de nuestra comunidad, disfruta de tu estadia ahora y siempre...");
+                return "redirect:/app";
         }
-        redirectAttributes.addAttribute("exito", "FELICIDADES! Ya eres parte de nuestra comunidad, disfruta de tu estadia ahora y siempre...");
-        return "redirect:/app";
-    }
 
 }
