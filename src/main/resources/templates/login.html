@@ -87,12 +87,10 @@
                   class="form-control form-control-lg"
                   placeholder="Ingresa tú correo electrónico"
                   name="username"
-                />
-                <label
-                  class="form-label"
-                  for="username"
                   list="username"
-                  patern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
+                />
+                <label class="form-label" for="username"
                   >Correo electrónico</label
                 >
                 <datalist id="username">
@@ -112,12 +110,13 @@
                   class="form-control form-control-lg"
                   name="password"
                   placeholder="Ingresa tú contraseña"
+                  list="pasword"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                 />
-                <label class="form-label" for="password" name="password" list="paswords" >Contraseña</label>
-                <datalist id="paswords">
-                    <option value="123"></option>
-                  </datalist>
-
+                <label class="form-label" for="password">Contraseña</label>
+                <datalist id="pasword">
+                  <option value="123"></option>
+                </datalist>
               </div>
 
               <div class="d-flex justify-content-between align-items-center">
