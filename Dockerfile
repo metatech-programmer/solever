@@ -23,10 +23,8 @@ WORKDIR /app
 COPY --from=build /app/target/Solever-0.0.1-SNAPSHOT.jar app.jar
 
 # Expone el puerto que utilizará la aplicación
-EXPOSE 8000
+EXPOSE 8080
 
-# Establece las opciones de JVM para la aplicación (ajusta según sea necesario)
-ENV JAVA_OPTS=""
 
 # Comando para ejecutar la aplicación Spring Boot
 CMD ["java", "-jar", "app.jar"]
