@@ -1,21 +1,22 @@
 # Use a minimal JDK Alpine image as the base image
-FROM eclipse-temurin:17-jdk-alpine as build
+FROM adoptopenjdk:17-jdk-alpine as build
 
 # Set the working directory in the container
 WORKDIR /workspace/app
 
 # Copy Maven wrapper and project POM file
-
+COPY mvnw .
+COPY .mvn .mvn
 COPY pom.xml .
 
 # Copy the source code
 COPY src src
 
 # Build the application
-RUN mvn clean install -DskipTests
+RUN ./mvnw clean install -DskipTests
 
 # Create a new stage for the final image
-FROM eclipse-temurin:17-jre-alpine
+FROM adoptopenjdk:17-jre-alpine
 
 # Set the working directory in the final image
 WORKDIR /app
