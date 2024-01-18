@@ -1,5 +1,5 @@
 # Use a minimal JDK Alpine image as the base image
-FROM openjdk:17-jdk-alpine as build
+FROM eclipse-temurin:17-jdk-alpine as build
 
 # Set the working directory in the container
 WORKDIR /workspace/app
@@ -16,7 +16,7 @@ COPY src src
 RUN ./mvnw clean install -DskipTests
 
 # Create a new stage for the final image
-FROM openjdk:17-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 
 # Set the working directory in the final image
 WORKDIR /app
