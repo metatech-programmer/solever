@@ -7,8 +7,9 @@ WORKDIR /workspace/app
 # Copy Maven wrapper and project POM file
 COPY . .
 
-# Build the application
-RUN ./mvnw clean install -DskipTests
+RUN apk --no-cache add maven
+
+RUN mvn clean install -DskipTests
 
 # Create a new stage for the final image
 FROM eclipse-temurin:17-jre-alpine
