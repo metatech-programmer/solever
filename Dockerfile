@@ -12,7 +12,7 @@ COPY pom.xml .
 COPY src src
 
 # Build the application
-RUN ./mvn clean install -DskipTests
+RUN mvn clean install -DskipTests
 
 # Create a new stage for the final image
 FROM eclipse-temurin:17-jre-alpine
