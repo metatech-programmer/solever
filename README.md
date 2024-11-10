@@ -22,7 +22,7 @@ Solever es una plataforma diseñada para combatir la soledad a través de la con
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu_usuario/solever.git
+   git clone https://github.com/metatech-programmer/solever.git
    ```
 
 2. Navega al directorio del proyecto:
